@@ -3,3 +3,4 @@
 *.pem
 *.tfstate*
 .terraform.lock.hcl
+*.zip

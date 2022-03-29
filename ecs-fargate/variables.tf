@@ -69,10 +69,9 @@ variable "health_check_path" {
   default     = "/health"
 }
 
-variable "tsl_certificate_arn" {
-  description = "The ARN of the certificate that the ALB uses for https"
-}
-
 variable "profile" {
   description = "AWS profile"
 }
+
+variable "dns_record_name" {}
+variable "dns_zone_name" {}

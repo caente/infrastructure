@@ -4,3 +4,8 @@
 *.tfstate*
 .terraform.lock.hcl
 *.zip
+target
+.bloop
+.metals
+metals.sbt
+sbt.json

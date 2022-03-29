@@ -1,4 +1,4 @@
-name                = "Dimeder1"
+name                = "dimeder-1"
 environment         = "test"
 availability_zones  = ["us-east-1a", "us-east-1b"]
 private_subnets     = ["10.0.0.0/20", "10.0.32.0/20"]

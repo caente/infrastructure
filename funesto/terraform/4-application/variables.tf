@@ -8,7 +8,9 @@ variable "region" {
 
 variable "remote_state_bucket" {}
 
-variable "remote_state_key" {}
+variable "remote_state_key_platform" {}
+
+variable "remote_state_key_rds" {}
 
 variable "ecs_service_name" {}
 
@@ -23,3 +25,7 @@ variable "docker_container_port" {}
 variable "desired_tasks_count" {}
 
 variable "spring_profile" {}
+
+variable "db_user" {}
+
+variable "db_password" {}

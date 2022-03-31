@@ -31,7 +31,7 @@ resource "aws_subnet" "private-subnet" {
   availability_zone = element(var.availability_zone, count.index )
   count             = length(var.private_subnets_cidr)
   tags              = {
-    Name = "Public-Subnet-${count.index}"
+    Name = "Private-Subnet-${count.index}"
   }
 }
 

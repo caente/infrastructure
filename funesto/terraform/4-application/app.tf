@@ -11,7 +11,16 @@ data "terraform_remote_state" "platform" {
   config  = {
     region = var.region
     bucket = var.remote_state_bucket
-    key    = var.remote_state_key
+    key    = var.remote_state_key_platform
+  }
+}
+
+data "terraform_remote_state" "rds" {
+  backend = "s3"
+  config  = {
+    region = var.region
+    bucket = var.remote_state_bucket
+    key    = var.remote_state_key_rds
   }
 }
 
@@ -25,6 +34,10 @@ data "template_file" "ecs_task_definition_template" {
     docker_container_port = var.docker_container_port
     spring_profile        = var.spring_profile
     region                = var.region
+    db_host               = data.terraform_remote_state.rds.outputs.rds_hostname
+    db_port               = data.terraform_remote_state.rds.outputs.rds_port
+    db_user               = var.db_user
+    db_password           = var.db_password
   }
 }
 
@@ -116,7 +129,7 @@ resource "aws_ecs_service" "ecs_service" {
 
 resource "aws_alb_listener_rule" "ecs_alb_listener_rule" {
   listener_arn = data.terraform_remote_state.platform.outputs.ecs_alb_listener_arn
-  priority = 100
+  priority     = 100
   action {
     type             = "forward"
     target_group_arn = aws_alb_target_group.ecs_app_target_group.arn

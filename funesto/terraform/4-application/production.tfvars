@@ -1,10 +1,11 @@
-remote_state_key      = "PROD/platform.tfstate"
 remote_state_bucket   = "funesto-state"
+remote_state_key_platform      = "PROD/platform.tfstate"
+remote_state_key_rds      = "PROD/rds.tfstate"
 region                = "us-east-1"
 profile               = "dimeder"
 ecs_service_name      = "server"
 memory                = 1024
 cpu                   = 512
 docker_container_port = 8080
-spring_profile        = "default"
+spring_profile        = "prod"
 desired_tasks_count   = 2

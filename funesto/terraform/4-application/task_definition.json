@@ -7,6 +7,18 @@
       {
         "name": "spring_profile_active",
         "value": "${spring_profile}"
+      } ,{
+        "name":"db_user",
+        "value": "${db_user}"
+      },{
+        "name":"db_password",
+        "value": "${db_password}"
+      },{
+        "name":"db_host",
+        "value": "${db_host}"
+      },{
+        "name":"db_port",
+        "value": "${db_port}"
       }
     ],
     "portMappings": [

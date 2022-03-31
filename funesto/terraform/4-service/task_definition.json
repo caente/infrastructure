@@ -5,7 +5,7 @@
     "essential": true,
     "environment": [
       {
-        "name": "spring_profile_active",
+        "name": "SPRING_PROFILES_ACTIVE",
         "value": "${spring_profile}"
       } ,{
         "name":"db_user",

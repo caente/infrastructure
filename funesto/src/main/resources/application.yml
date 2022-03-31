@@ -23,9 +23,9 @@ spring:
     username: &dbUser ${db_user}
     password: &dbPassword ${db_password}
   flyway:
-    url: jdbc:mysql://localhost:3306/funesto
-    user: root
-    password: 123456
+    url: jdbc:mysql://${db_host}:${db_port}/funesto
+    user: ${db_user}
+    password: ${db_password}
     baseline-on-migrate: true
   config:
     activate:

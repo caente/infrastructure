@@ -14,15 +14,12 @@ libraryDependencies ++= Seq(
   "dev.miku" % "r2dbc-mysql" % "0.8.2.RELEASE" //runtimeOnly
 )
 
-ThisBuild / name := "funesto"
-ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "funesto.server"
-ThisBuild / scalaVersion := "2.13.1"
-assembly / mainClass := Some("funesto.server.Boot")
-assembly / assemblyJarName := "server.jar"
+name := "server"
+version := "0.1.0-SNAPSHOT"
+organization := "funesto.server"
+scalaVersion := "2.13.1"
+maintainer := "dimeder.com"
 
-assembly / assemblyMergeStrategy := {
-  case PathList("META-INF", "spring.factories") => MergeStrategy.filterDistinctLines
-  case PathList("META-INF", _*) => MergeStrategy.discard
-  case _ => MergeStrategy.first
-}
+enablePlugins( JavaAppPackaging )
+Universal / packageName := "server"
+Universal / name := "server"

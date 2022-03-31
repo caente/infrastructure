@@ -1,17 +1,15 @@
-provider "aws" {
-  region = var.region
-}
-
 terraform {
   backend "s3" {}
 }
-
-data "terraform_remote_state" "platform" {
+provider "aws" {
+  region = var.region
+}
+data "terraform_remote_state" "ecs" {
   backend = "s3"
   config  = {
     region = var.region
     bucket = var.remote_state_bucket
-    key    = var.remote_state_key_platform
+    key    = var.remote_state_key_ecs
   }
 }
 
@@ -93,7 +91,7 @@ resource "aws_alb_target_group" "ecs_app_target_group" {
   name        = "${var.ecs_service_name}-TG"
   port        = var.docker_container_port
   protocol    = "HTTP"
-  vpc_id      = data.terraform_remote_state.platform.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.ecs.outputs.vpc_id
   target_type = "ip"
   health_check {
     path                = "/api/ping"
@@ -113,10 +111,10 @@ resource "aws_ecs_service" "ecs_service" {
   name            = var.ecs_service_name
   task_definition = aws_ecs_task_definition.app-definition.arn
   desired_count   = var.desired_tasks_count
-  cluster         = data.terraform_remote_state.platform.outputs.ecs_cluster_name
+  cluster         = data.terraform_remote_state.ecs.outputs.ecs_cluster_name
   launch_type     = "FARGATE"
   network_configuration {
-    subnets          = data.terraform_remote_state.platform.outputs.public_subnet_ids
+    subnets          = data.terraform_remote_state.ecs.outputs.public_subnet_ids
     security_groups  = [aws_security_group.app_security_group.id]
     assign_public_ip = true
   }
@@ -128,7 +126,7 @@ resource "aws_ecs_service" "ecs_service" {
 }
 
 resource "aws_alb_listener_rule" "ecs_alb_listener_rule" {
-  listener_arn = data.terraform_remote_state.platform.outputs.ecs_alb_listener_arn
+  listener_arn = data.terraform_remote_state.ecs.outputs.ecs_alb_listener_arn
   priority     = 100
   action {
     type             = "forward"
@@ -136,7 +134,7 @@ resource "aws_alb_listener_rule" "ecs_alb_listener_rule" {
   }
   condition {
     host_header {
-      values = ["${lower(var.ecs_service_name)}.${data.terraform_remote_state.platform.outputs.ecs_domain_name}"]
+      values = ["${lower(var.ecs_service_name)}.${data.terraform_remote_state.ecs.outputs.ecs_domain_name}"]
     }
   }
 }

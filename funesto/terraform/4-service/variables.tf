@@ -8,7 +8,7 @@ variable "region" {
 
 variable "remote_state_bucket" {}
 
-variable "remote_state_key_platform" {}
+variable "remote_state_key_ecs" {}
 
 variable "remote_state_key_rds" {}
 

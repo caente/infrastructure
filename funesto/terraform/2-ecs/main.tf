@@ -6,12 +6,12 @@ terraform {
   backend "s3" {}
 }
 
-data "terraform_remote_state" "infrastructure" {
+data "terraform_remote_state" "vpc" {
   backend = "s3"
   config  = {
     region = var.region
     bucket = var.remote_state_bucket
-    key    = var.remote_state_key
+    key    = var.remote_state_key_vpc
   }
 }
 
@@ -23,7 +23,7 @@ resource "aws_alb" "ecs_cluster_alb" {
   name            = "${var.ecs_cluster_name}-ALB"
   internal        = false #to be used for the public resources
   security_groups = [aws_security_group.ecs_alb_security_group.id]
-  subnets         = data.terraform_remote_state.infrastructure.outputs.public_subnet_ids
+  subnets         = data.terraform_remote_state.vpc.outputs.public_subnet_ids
   tags            = {
     Name = "${var.ecs_cluster_name}-ALB"
   }
@@ -44,7 +44,7 @@ resource "aws_alb_target_group" "ecs_default_target_group" {
   name     = "${var.ecs_cluster_name}-TG"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = data.terraform_remote_state.infrastructure.outputs.vpc_id
+  vpc_id   = data.terraform_remote_state.vpc.outputs.vpc_id
   tags     = {
     Name = "${var.ecs_cluster_name}-TG"
   }

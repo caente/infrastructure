@@ -1,9 +1,9 @@
 output "vpc_id" {
-  value = data.terraform_remote_state.infrastructure.outputs.vpc_id
+  value = data.terraform_remote_state.vpc.outputs.vpc_id
 }
 
 output "vpc_cidr_block" {
-  value = data.terraform_remote_state.infrastructure.outputs.vpc_cidr_block
+  value = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
 }
 
 output "ecs_alb_listener_arn" {
@@ -27,9 +27,13 @@ output "ecs_domain_name" {
 }
 
 output "public_subnet_ids" {
-  value = data.terraform_remote_state.infrastructure.outputs.public_subnet_ids
+  value = data.terraform_remote_state.vpc.outputs.public_subnet_ids
 }
 
 output "private_subnet_ids" {
-  value = data.terraform_remote_state.infrastructure.outputs.private_subnet_ids
+  value = data.terraform_remote_state.vpc.outputs.private_subnet_ids
+}
+
+output "alb_security_group_id" {
+  value = aws_security_group.ecs_alb_security_group.id
 }

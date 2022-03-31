@@ -86,8 +86,8 @@ resource "aws_alb_target_group" "ecs_app_target_group" {
     path                = "/funesto/api/ping"
     protocol            = "HTTP"
     matcher             = "200"
-    interval            = 60
-    timeout             = 30
+    interval            = "60"
+    timeout             = "30"
     unhealthy_threshold = "3"
     healthy_threshold   = "3"
   }
@@ -98,7 +98,7 @@ resource "aws_alb_target_group" "ecs_app_target_group" {
 
 resource "aws_ecs_service" "ecs_service" {
   name            = var.ecs_service_name
-  task_definition = var.ecs_service_name
+  task_definition = aws_ecs_task_definition.app-definition.arn
   desired_count   = var.desired_tasks_count
   cluster         = data.terraform_remote_state.platform.outputs.ecs_cluster_name
   launch_type     = "FARGATE"
@@ -116,16 +116,18 @@ resource "aws_ecs_service" "ecs_service" {
 
 resource "aws_alb_listener_rule" "ecs_alb_listener_rule" {
   listener_arn = data.terraform_remote_state.platform.outputs.ecs_alb_listener_arn
+  priority = 100
   action {
     type             = "forward"
     target_group_arn = aws_alb_target_group.ecs_app_target_group.arn
   }
   condition {
-    field  = "host-header"
-    values = ["${lower(var.ecs_service_name)}.${data.terraform_remote_state.platform.outputs.ecs_domain_name}"]
+    host_header {
+      values = ["${lower(var.ecs_service_name)}.${data.terraform_remote_state.platform.outputs.ecs_domain_name}"]
+    }
   }
 }
 
 resource "aws_cloudwatch_log_group" "app_log_group" {
-  name = "${var.ecs_service_name}}-LogGroup"
+  name = "${var.ecs_service_name}-LogGroup"
 }

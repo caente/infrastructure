@@ -19,7 +19,7 @@ ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "funesto.server"
 ThisBuild / scalaVersion := "2.13.1"
 assembly / mainClass := Some("funesto.server.Boot")
-assembly / assemblyJarName := "funesto.jar"
+assembly / assemblyJarName := "server.jar"
 
 assembly / assemblyMergeStrategy := {
   case PathList("META-INF", "spring.factories") => MergeStrategy.filterDistinctLines

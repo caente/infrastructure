@@ -9,3 +9,4 @@ target
 .metals
 metals.sbt
 sbt.json
+*.jar

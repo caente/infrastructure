@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.{GetMapping, RequestMapping, Rest
 //import reactor.core.publisher.Flux
 
 @RestController
-@RequestMapping(Array("/funesto/api"))
+@RequestMapping(Array("/api"))
 class API(
            //           private val userRepository: UserRepository
          ) {

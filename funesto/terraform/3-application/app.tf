@@ -83,7 +83,7 @@ resource "aws_alb_target_group" "ecs_app_target_group" {
   vpc_id      = data.terraform_remote_state.platform.outputs.vpc_id
   target_type = "ip"
   health_check {
-    path                = "/funesto/api/ping"
+    path                = "/api/ping"
     protocol            = "HTTP"
     matcher             = "200"
     interval            = "60"

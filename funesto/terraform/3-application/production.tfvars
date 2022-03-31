@@ -7,4 +7,4 @@ memory                = 1024
 cpu                   = 512
 docker_container_port = 8080
 spring_profile        = "default"
-desired_tasks_count   = 3
+desired_tasks_count   = 2

@@ -94,7 +94,7 @@ resource "aws_alb_target_group" "ecs_app_target_group" {
   vpc_id      = data.terraform_remote_state.ecs.outputs.vpc_id
   target_type = "ip"
   health_check {
-    path                = "/api/ping"
+    path                = "/api/${var.ecs_service_name}/ping"
     protocol            = "HTTP"
     matcher             = "200"
     interval            = "60"

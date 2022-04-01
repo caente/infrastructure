@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.{ GetMapping, RequestMapping, Res
 import reactor.core.publisher.Flux
 
 @RestController
-@RequestMapping( Array( "/api" ) )
+@RequestMapping( Array( "/server1/api" ) )
 class API(private val userRepository: UserRepository ) {
   @GetMapping( Array( "/ping" ) )
   def ping: String = "pong"

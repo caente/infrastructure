@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: "dev"
+---
+spring:
+  r2dbc:
+    url: &dbURL r2dbc:mysql://localhost:3306/funesto
+    username: &dbUser root
+    password: &dbPassword 123456
+  flyway:
+    url: jdbc:mysql://localhost:3306/funesto
+    user: root
+    password: 123456
+    baseline-on-migrate: true
+  config:
+    activate:
+      on-profile: dev
+
+---
+spring:
+  r2dbc:
+    url: &dbURL r2dbc:mysql://${db_host}:${db_port}/funesto
+    username: &dbUser ${db_user}
+    password: &dbPassword ${db_password}
+  flyway:
+    url: jdbc:mysql://${db_host}:${db_port}/funesto
+    user: ${db_user}
+    password: ${db_password}
+    baseline-on-migrate: true
+  config:
+    activate:
+      on-profile: prod

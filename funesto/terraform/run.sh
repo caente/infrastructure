@@ -28,8 +28,8 @@ elif [ "${COMMAND}" = "plan" ]; then
 elif [ "${COMMAND}" = "deploy" ]; then
   cd 4-service
   echo "Deploying ${SERVICE_NAME}:${SERVICE_TAG}..."
-  terraform init --backend-config="service-prod.config"
-  terraform apply --var-file="production.tfvars" -var "docker_image_url=${ECR_REPO_URL}:${SERVICE_TAG}" --auto-approve
+  terraform init --backend-config="service-prod.config" -backend-config="key=PROD/${SERVICE_NAME}.tfstate" -reconfigure
+  terraform apply --var-file="production.tfvars" -var "ecs_service_name=${SERVICE_NAME}" -var "docker_image_url=${ECR_REPO_URL}:${SERVICE_TAG}" --auto-approve
 elif [ "${COMMAND}" = "destroy" ]; then
   cd 4-service
   echo "Destroying ${SERVICE_NAME}..."

@@ -3,7 +3,6 @@ remote_state_key_ecs  = "PROD/ecs.tfstate"
 remote_state_key_rds  = "PROD/rds.tfstate"
 region                = "us-east-1"
 profile               = "dimeder"
-ecs_service_name      = "server"
 memory                = 1024
 cpu                   = 512
 docker_container_port = 8080

@@ -4,11 +4,11 @@ spring:
 ---
 spring:
   r2dbc:
-    url: &dbURL r2dbc:mysql://localhost:3306/funesto
+    url: &dbURL r2dbc:mysql://localhost:3306/server2
     username: &dbUser root
     password: &dbPassword 123456
   flyway:
-    url: jdbc:mysql://localhost:3306/funesto
+    url: jdbc:mysql://localhost:3306/server2
     user: root
     password: 123456
     baseline-on-migrate: true
@@ -19,11 +19,11 @@ spring:
 ---
 spring:
   r2dbc:
-    url: &dbURL r2dbc:mysql://${db_host}:${db_port}/funesto
+    url: &dbURL r2dbc:mysql://${db_host}:${db_port}/server2
     username: &dbUser ${db_user}
     password: &dbPassword ${db_password}
   flyway:
-    url: jdbc:mysql://${db_host}:${db_port}/funesto
+    url: jdbc:mysql://${db_host}:${db_port}/server2
     user: ${db_user}
     password: ${db_password}
     baseline-on-migrate: true

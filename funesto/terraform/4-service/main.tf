@@ -94,7 +94,7 @@ resource "aws_alb_target_group" "ecs_app_target_group" {
   vpc_id      = data.terraform_remote_state.ecs.outputs.vpc_id
   target_type = "ip"
   health_check {
-    path                = "/api/${var.ecs_service_name}/ping"
+    path                = "/api/ping"
     protocol            = "HTTP"
     matcher             = "200"
     interval            = "60"
@@ -127,7 +127,6 @@ resource "aws_ecs_service" "ecs_service" {
 
 resource "aws_alb_listener_rule" "ecs_alb_listener_rule" {
   listener_arn = data.terraform_remote_state.ecs.outputs.ecs_alb_listener_arn
-  priority     = 100
   action {
     type             = "forward"
     target_group_arn = aws_alb_target_group.ecs_app_target_group.arn

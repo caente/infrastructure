@@ -19,7 +19,11 @@
       },{
         "name":"db_port",
         "value": "${db_port}"
+      },{
+        "name": "SERVICE_NAME",
+        "value": "${ecs_service_name}"
       }
+
     ],
     "portMappings": [
       {
